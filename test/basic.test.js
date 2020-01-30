@@ -7,13 +7,14 @@ describe('kaskadi-icon', () => {
     elem = document.createElement('kaskadi-icon')
     document.body.appendChild(elem)
     await elem.updateComplete
+    fetch()
   })
   it('should render the string "Hello World"', (done) => {
     var cs = getComputedStyle(elem.shadowRoot.querySelector('div'))
     cs.width.should.equal('24px')
     elem.icon = 'http://cdn.klimapartner.de/imgs/icons/kaskadi-logo.svg'
-    var cs = getComputedStyle(elem.shadowRoot.querySelector('div'))
-    cs.width.should.equal('24px')
+    var cs2 = getComputedStyle(elem.shadowRoot.querySelector('div'))
+    cs2.width.should.equal('24px')
     setTimeout(done, 1000)
   })
 })
