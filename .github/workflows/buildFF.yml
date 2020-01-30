@@ -1,0 +1,15 @@
+name: build-on-firefox
+on:
+  push:
+    paths:
+      - '**.js'
+      - 'example/index.html'
+jobs:
+  buildFF:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Test Firefox
+      run: |
+        npm i
+        npm run test.FF
