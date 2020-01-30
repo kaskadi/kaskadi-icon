@@ -1,17 +1,12 @@
 /* eslint-env browser, mocha */
-// import { css, html } from 'https://cdn.klimapartner.net/modules/lit-element/lit-element.js'
-import { lang, translate, KaskadiElement, css, html } from 'https://cdn.klimapartner.net/modules/@kaskadi/kaskadi-element/kaskadi-element.js'
+import { until } from 'https://cdn.klimapartner.net/modules/lit-html/directives/until.js'
+import { unsafeHTML } from 'https://cdn.klimapartner.net/modules/lit-html/directives/unsafe-html.js'
+import { KaskadiElement, css, html } from 'https://cdn.klimapartner.net/modules/@kaskadi/kaskadi-element/kaskadi-element.js'
 
 class KaskadiIcon extends KaskadiElement {
   constructor () {
     super()
-    const phrase = {
-      en: 'Hello World!',
-      de: 'Hallo Welt!',
-      fr: 'bonjour monde!'
-    }
-    this.phrase = lang`${phrase}`
-    this.lang = 'en'
+    this.icon = 'test'
   }
 
   static get styles () {
@@ -19,22 +14,26 @@ class KaskadiIcon extends KaskadiElement {
       :host{
         display: inline-block;
       }
-      div{color: red}
+      #icon, #placeholder {
+        width: var(--icon-width, 24px);
+        height: var(--icon-height, 24px)
+      }
     `
   }
 
   static get properties () {
     return {
-      phrase: { type: String },
-      lang: { type: String }
+      icon: { type: String },
+      lang: {type: String }
     }
   }
 
   render () {
-    return html`
-      <div id="en">${translate(this.phrase, 'en')}</div>
-      <div id="de">${translate(this.phrase, 'de')}</div>
-      <div id="fr">${translate(this.phrase, 'fr')}</div>
+    const iconToLoad = this.icon.includes('/') ? this.icon : `./icons/basic/${this.icon}.svg`
+    const iconContent = fetch(iconToLoad).then(x => x.text()).then(x => unsafeHTML(x))
+    return html`<div id="icon">
+      ${until(iconContent, html`<div id="placeholder"></div>`)}
+    </div>
     `
   }
 }
