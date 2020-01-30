@@ -31,10 +31,12 @@ class KaskadiIcon extends KaskadiElement {
   }
 
   render () {
-    return html`
-      <div id="en">${translate(this.phrase, 'en')}</div>
-      <div id="de">${translate(this.phrase, 'de')}</div>
-      <div id="fr">${translate(this.phrase, 'fr')}</div>
+    // bla
+    const iconToLoad = this.icon.includes('/') ? this.icon : `./icons/basic/${this.icon}.svg`
+    const iconContent = fetch(iconToLoad).then(x => x.text()).then(x => unsafeHTML(x))
+    return html`<div id="icon">
+      ${until(iconContent, html`<div id="placeholder"></div>`)}
+    </div>
     `
   }
 }
