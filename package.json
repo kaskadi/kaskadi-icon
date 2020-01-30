@@ -1,8 +1,8 @@
 {
-  "name": "template-kaskadi-element",
+  "name": "kaskadi-icon",
   "version": "1.0.0",
   "description": "",
-  "main": "template-kaskadi-element.js",
+  "main": "kaskadi-icon.js",
   "directories": {
     "example": "example",
     "test": "test"
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaskadi/template-kaskadi-element.git"
+    "url": "git+https://github.com/kaskadi/kaskadi-icon.git"
   },
   "keywords": [],
   "author": "Klimapartner GmbH <kontakt@klimapartner.de> (https://klimapartner.de)",
@@ -28,19 +28,19 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaskadi/template-kaskadi-element/issues"
+    "url": "https://github.com/kaskadi/kaskadi-icon/issues"
   },
-  "homepage": "https://github.com/kaskadi/template-kaskadi-element#readme",
+  "homepage": "https://github.com/kaskadi/kaskadi-icon#readme",
   "kaskadi": {
     "s3-push": {
       "files": [
         {
-          "src": "template-kaskadi-element.js",
-          "dest": "modules/@kaskadi/template-kaskadi-element/{branch}template-kaskadi-element.js"
+          "src": "kaskadi-icon.js",
+          "dest": "modules/@kaskadi/kaskadi-icon/{branch}kaskadi-icon.js"
         },
         {
           "src": "example/index.html",
-          "dest": "modules/@kaskadi/template-kaskadi-element/{branch}example/index.html"
+          "dest": "modules/@kaskadi/kaskadi-icon/{branch}example/index.html"
         }
       ]
     }
