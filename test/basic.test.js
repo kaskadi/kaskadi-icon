@@ -1,9 +1,9 @@
 /* eslint-env browser, mocha */
-import '../template-kaskadi-element.js'
-describe('template-kaskadi-element', () => {
+import '../kaskadi-icon.js'
+describe('kaskadi-icon', () => {
   it('should render the string "Hello World"', async () => {
-    // create template-kaskadi-element element
-    var elem = document.createElement('template-kaskadi-element')
+    // create kaskadi-icon element
+    var elem = document.createElement('kaskadi-icon')
     document.body.appendChild(elem)
     // wait until it's finished rendering
     await elem.updateComplete
