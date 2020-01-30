@@ -29,6 +29,7 @@ class KaskadiIcon extends KaskadiElement {
   }
 
   render () {
+    // bla
     const iconToLoad = this.icon.includes('/') ? this.icon : `./icons/basic/${this.icon}.svg`
     const iconContent = fetch(iconToLoad).then(x => x.text()).then(x => unsafeHTML(x))
     return html`<div id="icon">
