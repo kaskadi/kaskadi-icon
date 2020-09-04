@@ -1,0 +1,24 @@
+name: build
+on:
+  pull_request:
+    branches:
+      - 'master'
+      - 'release/**'
+    types: [opened, reopened, edited, synchronize]
+    paths:
+      - '**.js'
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm i
+    - name: Generate coverage report
+      run: npm run coverage
+    - name: Upload report to Code Climate
+      uses: kaskadi/action-cc-reporter@master
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.REPORTER_ID }}
+        GIT_BRANCH: ${{ github.base_ref }}
+        GIT_COMMIT: ${{ github.sha }}
