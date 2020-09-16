@@ -1,6 +1,10 @@
 name: build-on-firefox
 on:
-  push:
+  pull_request:
+    branches:
+      - 'master'
+      - 'dev'
+    types: [opened, reopened, edited, synchronize]
     paths:
       - '**.js'
       - 'example/index.html'
