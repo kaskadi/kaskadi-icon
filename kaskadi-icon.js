@@ -4,6 +4,27 @@ import { KaskadiElement, css, html } from 'https://cdn.klimapartner.net/modules/
 
 // Important: it does not seem to be possible to save space for the icon in the layout while waiting for kaskadi-icon to render. We are able to make sure that the space is preserved while loading the icon (by using #wrapper fixed width and height). But when kaskadi-icon is mounted in the DOM it first takes styling from its parent meaning that its content box starts as auto x auto (no shadow DOM yet = no content to fit to so we are 0 x 0 in reality). It only then switches to whatever style we gave him as soon as the shadow DOM is mounted below kaskadi-icon.
 
+/**
+ * Element serving as an icon loader.
+ *
+ * For now this only saves space in the layout for the icon to be loaded. **Warning: on first load it will not actually save space in the layout since the Shadow DOM hasn't been attached to the element yet. But once the Shadow DOM is attached, while the image is loading, the space will be preserved in the layout.
+ *
+ * This element inherits properties from a base class `KaskadiElement`. To see which properties are available, please refer to [`KaskadiElement` documentation](https://github.com/kaskadi/kaskadi-element).
+ *
+ * @module kaskadi-icon
+ *
+ * @param {string} [icon] - URL to an icon you would like to load. If the URL is invalid or if it is ommited, it will be defaulted to a placeholder icon. You can change this attribute on the fly and the element will reload the newly provided icon.
+ * @param {Event} oniconload - once the icon is loaded an `icon-load` event will be fired that you can refere to (via `@icon-load` for example). This event contains in its `detail` field an object containing a `src` field which provides the source used for the icon loaded.
+ *
+ * @example
+ *
+ * <!-- This will load a placeholder icon -->
+ * <kaskadi-icon></kaskadi-icon>
+ * <kaskadi-icon icon="abc"></kaskadi-icon>
+ * <!-- This will load the provided icon -->
+ * <kaskadi-icon icon="https://img.icons8.com/material/4ac144/256/user-male.png"></kaskadi-icon>
+ */
+
 class KaskadiIcon extends KaskadiElement {
   constructor () {
     super()
