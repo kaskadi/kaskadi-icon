@@ -7,7 +7,7 @@ import { KaskadiElement, css, html } from 'https://cdn.klimapartner.net/modules/
 /**
  * Element serving as an icon loader.
  *
- * For now this only saves space in the layout for the icon to be loaded. **Warning: on first load it will not actually save space in the layout since the Shadow DOM hasn't been attached to the element yet. But once the Shadow DOM is attached, while the image is loading, the space will be preserved in the layout.
+ * For now this only saves space in the layout for the icon to be loaded. **Warning:** on first load it will not actually save space in the layout since the Shadow DOM hasn't been attached to the element yet. But once the Shadow DOM is attached, while the image is loading, the space will be preserved in the layout.
  *
  * This element inherits properties from a base class `KaskadiElement`. To see which properties are available, please refer to [`KaskadiElement` documentation](https://github.com/kaskadi/kaskadi-element).
  *
