@@ -29,15 +29,20 @@ class KaskadiIcon extends KaskadiElement {
     return !!pattern.test(str)
   }
 
-  firstUpdated () {
+  async firstUpdated () {
     if (!this._isUrl(this.icon) && this.icon !== this._defaultUrl) {
       this.icon = this._defaultUrl
       console.warn('URL provided for icon is not a valid URL. Using default icon instead.')
     }
-    this._iconContent = fetch(this.icon)
+    this._iconContent = await fetch(this.icon)
       .then(res => res.blob())
       .then(data => URL.createObjectURL(data))
       .then(src => html`<img id="icon" src="${src}">`)
+    this.updateComplete
+      .then(() => {
+        const ev = new CustomEvent('load', { detail: true })
+        this.dispatchEvent(ev)
+      })
   }
 
   static get styles () {
