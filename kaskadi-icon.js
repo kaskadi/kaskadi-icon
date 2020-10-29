@@ -8,14 +8,32 @@ class KaskadiIcon extends KaskadiElement {
   constructor () {
     super()
     this._defaultUrl = './icons/default.svg'
-    this.icon = this._defaultUrl
+    this._icon = this._defaultUrl
   }
 
   static get properties () {
     return {
-      icon: { type: String },
-      _iconContent: { attribute: false } // we use this as internal to rerender when _iconContent gets assigned to the fetch promise
+      icon: { type: String }
     }
+  }
+
+  // custom setter for the icon property which will transform the icon attribute into the default URL if the URL provided is invalid
+  set icon (val) {
+    const oldVal = this._icon
+    if (!this._isUrl(val) && val !== this._defaultUrl) {
+      console.warn('URL provided for icon is not a valid URL. Using default icon instead.')
+      this._icon = this._defaultUrl
+    } else {
+      this._icon = val
+    }
+    if (oldVal !== this._icon) {
+      this.requestUpdate('icon', this._icon)
+    }
+  }
+
+  // custom getter simply returning a private _icon property
+  get icon () {
+    return this._icon
   }
 
   _isUrl (str) {
@@ -29,30 +47,25 @@ class KaskadiIcon extends KaskadiElement {
     return !!pattern.test(str)
   }
 
-  async firstUpdated () {
-    if (!this._isUrl(this.icon) && this.icon !== this._defaultUrl) {
-      this.icon = this._defaultUrl
-      console.warn('URL provided for icon is not a valid URL. Using default icon instead.')
+  _loadIcon () {
+    const loadHandler = (e) => {
+      const ev = new CustomEvent('load', {
+        detail: {
+          src: this.shadowRoot.querySelector('#icon').src
+        }
+      })
+      this.dispatchEvent(ev)
     }
-    this._iconContent = await fetch(this.icon)
+    this._iconContent = fetch(this.icon)
       .then(res => res.blob())
       .then(data => URL.createObjectURL(data))
-      .then(src => html`<img id="icon" src="${src}">`)
-    this.updateComplete
-      .then(() => {
-        const ev = new CustomEvent('load', {
-          detail: {
-            src: this.shadowRoot.querySelector('#icon').src
-          }
-        })
-        this.dispatchEvent(ev)
-      })
+      .then(src => html`<img id="icon" src="${src}" onload="${loadHandler}">`)
   }
 
   static get styles () {
     return css`
       :host{
-        display: block;
+        display: inline-block;
         --icon-width: 24px;
         --icon-height: 24px;
       }
@@ -79,6 +92,7 @@ class KaskadiIcon extends KaskadiElement {
   }
 
   render () {
+    this._loadIcon()
     return html`
     <div id="wrapper">
       ${until(this._iconContent)}
