@@ -16,7 +16,17 @@
     </style>
   </head>
   <body>
-    trigger build
-    <kaskadi-icon></kaskadi-icon>
+    <div>
+      <p>No "icon" attribute specified</p>
+      <kaskadi-icon style="width: 24px; height: 24px;"></kaskadi-icon>
+    </div>
+    <div>
+      <p>"icon" attribute is not a valid URL</p>
+      <kaskadi-icon icon="abc"></kaskadi-icon>
+    </div>
+    <div>
+      <p>"icon" attribute is a valid URL</p>
+      <kaskadi-icon icon="https://img.icons8.com/material/4ac144/256/user-male.png"></kaskadi-icon>
+    </div>
   </body>
 </html>
