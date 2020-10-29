@@ -61,8 +61,8 @@ class KaskadiIcon extends KaskadiElement {
     this.dispatchEvent(ev)
   }
 
-  async _loadIcon () {
-    this._iconContent = await fetch(this.icon)
+  _loadIcon () {
+    this._iconContent = fetch(this.icon)
       .then(res => res.blob())
       .then(data => URL.createObjectURL(data))
       .then(src => html`<img id="icon" src="${src}">`)
