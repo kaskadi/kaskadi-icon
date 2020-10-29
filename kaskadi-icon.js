@@ -40,7 +40,11 @@ class KaskadiIcon extends KaskadiElement {
       .then(src => html`<img id="icon" src="${src}">`)
     this.updateComplete
       .then(() => {
-        const ev = new CustomEvent('load', { detail: true })
+        const ev = new CustomEvent('load', {
+          detail: {
+            src: this.shadowRoot.querySelector('#icon').src
+          }
+        })
         this.dispatchEvent(ev)
       })
   }
