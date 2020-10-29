@@ -12,9 +12,6 @@ module.exports = config => {
         istanbul: { esModules: true }
       }
     },
-    proxies: {
-      '/icons': `http://localhost:${port}/icons`
-    },
     reporters: ['progress', 'coverage'],
     port, // karma web server port
     colors: true,
