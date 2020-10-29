@@ -5,7 +5,8 @@ on:
       - 'master'
       - 'release/**'
     paths:
-      - '**.js'
+      - '*.js'
+      - '!karma.conf.js'
       - 'example/index.html'
       - 'package.json'
 env:
@@ -19,10 +20,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: npm i
-    - uses: paambaati/codeclimate-action@v2.4.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.REPORTER_ID }}
-      with:
-        coverageCommand: npm run coverage
+    - name: Test
+      run: npm test
     - name: Upload files to S3 bucket
       uses: kaskadi/action-s3cp@master
