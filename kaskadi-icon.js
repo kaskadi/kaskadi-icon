@@ -27,7 +27,12 @@ class KaskadiIcon extends KaskadiElement {
       this._icon = val
     }
     if (oldVal !== this._icon) {
-      this.requestUpdate('icon', this._icon)
+      this.icon = this._icon
+      this.requestUpdate('icon', oldVal)
+      this.updateComplete
+        .then(() => {
+          this._dispatchLoad()
+        })
     }
   }
 
@@ -47,19 +52,20 @@ class KaskadiIcon extends KaskadiElement {
     return !!pattern.test(str)
   }
 
-  _loadIcon () {
-    const loadHandler = (e) => {
-      const ev = new CustomEvent('load', {
-        detail: {
-          src: this.shadowRoot.querySelector('#icon').src
-        }
-      })
-      this.dispatchEvent(ev)
-    }
-    this._iconContent = fetch(this.icon)
+  _dispatchLoad () {
+    const ev = new CustomEvent('icon-load', {
+      detail: {
+        src: this._icon
+      }
+    })
+    this.dispatchEvent(ev)
+  }
+
+  async _loadIcon () {
+    this._iconContent = await fetch(this.icon)
       .then(res => res.blob())
       .then(data => URL.createObjectURL(data))
-      .then(src => html`<img id="icon" src="${src}" onload="${loadHandler}">`)
+      .then(src => html`<img id="icon" src="${src}">`)
   }
 
   static get styles () {
