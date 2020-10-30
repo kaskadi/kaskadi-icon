@@ -14,7 +14,7 @@ import { KaskadiElement, css, html } from 'https://cdn.klimapartner.net/modules/
  * @module kaskadi-icon
  *
  * @param {string} [icon] - URL to an icon you would like to load. If the URL is invalid or if it is ommited, it will be defaulted to a placeholder icon. You can change this attribute on the fly and the element will reload the newly provided icon.
- * @param {Event} oniconload - once the icon is loaded an `icon-load` event will be fired that you can refere to (via `@icon-load` for example). This event contains in its `detail` field an object containing a `src` field which provides the source used for the icon loaded.
+ * @param {Event} onload - once the icon is loaded a `load` event will be fired that you can refer to (via `@load` for example). This event contains in its `detail` the source used for the icon loaded.
  *
  * @example
  *
