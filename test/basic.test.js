@@ -3,7 +3,12 @@ import '../kaskadi-icon.js'
 
 describe('kaskadi-icon', function () {
   it('should emit an event when done loading which payload contains the src of the icon', async () => {
-    const loadTests = (e) => { e.detail.should.have.property('src') }
+    const loadTests = (e) => {
+      const detail = e.detail
+      detail.should.not.equal(null)
+      const type = typeof detail
+      type.should.equal('string')
+    }
     await mountComponent({ loadTests }).then(unmountComponent)
   })
   it('should allow users to provide a custom icon width and height', async () => {
@@ -16,23 +21,23 @@ describe('kaskadi-icon', function () {
     await mountComponent({ loadTests, attributes }).then(unmountComponent)
   })
   it('should render a placeholder image if no icon is specified', async () => {
-    const loadTests = (e) => { e.detail.src.should.equal('./icons/default.svg') }
+    const loadTests = (e) => { e.detail.should.equal('./icons/default.svg') }
     mountComponent({ loadTests }).then(unmountComponent)
   })
   it('should render a placeholder image if the specified icon is an invalid URL', async () => {
-    const loadTests = (e) => { e.detail.src.should.equal('./icons/default.svg') }
+    const loadTests = (e) => { e.detail.should.equal('./icons/default.svg') }
     const attributes = { icon: 'abc' }
     await mountComponent({ loadTests, attributes }).then(unmountComponent)
   })
   it('should render an image if the specified icon is a valid URL', async () => {
     const url = 'https://img.icons8.com/material/4ac144/256/user-male.png'
-    const loadTests = (e) => { e.detail.src.should.equal(url) }
+    const loadTests = (e) => { e.detail.should.equal(url) }
     const attributes = { icon: url }
     await mountComponent({ loadTests, attributes }).then(unmountComponent)
   })
   it('should render every image when passing multiple valid images in a row', async () => {
     let url = 'https://img.icons8.com/material/4ac144/256/user-male.png'
-    const loadTests = (e) => { e.detail.src.should.equal(url) }
+    const loadTests = (e) => { e.detail.should.equal(url) }
     await mountComponent({
       loadTests,
       attributes: { icon: url }
@@ -46,7 +51,7 @@ describe('kaskadi-icon', function () {
   })
   it('should render the proper images when passed a serie of valid and invalid URL', async () => {
     let url = 'https://img.icons8.com/material/4ac144/256/user-male.png'
-    const loadTests = (e) => { e.detail.src.should.equal(url) }
+    const loadTests = (e) => { e.detail.should.equal(url) }
     await mountComponent({
       loadTests,
       attributes: { icon: url }
@@ -93,7 +98,7 @@ function mountComponent (opts = {}) {
   const { tests, loadTests, attributes } = opts
   const elem = document.createElement('kaskadi-icon')
   tests(elem)
-  elem.addEventListener('icon-load', loadTests)
+  elem.addEventListener('load', loadTests)
   setAttributes(elem, attributes)
   document.body.appendChild(elem)
   return elem.updateComplete
