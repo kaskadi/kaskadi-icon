@@ -21,13 +21,47 @@ describe('kaskadi-icon', function () {
     const attributes = { icon: url }
     await mountComponent({ loadTests, attributes }).then(unmountComponent)
   })
-  it('should render every image when passing multiple images in a row', async () => {
+  it('should render every image when passing multiple valid images in a row', async () => {
     let url = 'https://img.icons8.com/material/4ac144/256/user-male.png'
     const loadTests = (e) => { e.detail.src.should.equal(url) }
-    await mountComponent({ loadTests, attributes: { icon: url } })
+    await mountComponent({
+      loadTests,
+      attributes: { icon: url }
+    })
       .then((elem) => {
         url = 'https://cdn.onlinewebfonts.com/svg/img_148071.png'
         setAttributes(elem, { icon: url })
+        return elem
+      })
+      .then(unmountComponent)
+  })
+  it('should render the proper images when passed a serie of valid and invalid URL', async () => {
+    let url = 'https://img.icons8.com/material/4ac144/256/user-male.png'
+    const loadTests = (e) => { e.detail.src.should.equal(url) }
+    await mountComponent({
+      loadTests,
+      attributes: { icon: url }
+    })
+      .then((elem) => {
+        url = './icons/default.svg'
+        setAttributes(elem, { icon: 'abc' })
+        return elem
+      })
+      .then(unmountComponent)
+  })
+  it('should only render once', async () => {
+    let url = 'abc'
+    let calls = 0
+    const loadTests = (e) => { calls++ }
+    await mountComponent({
+      loadTests,
+      attributes: { icon: url }
+    })
+      .then(async (elem) => {
+        url = 'lmn'
+        setAttributes(elem, { icon: url })
+        await elem.updateComplete
+        calls.should.equal(1)
         return elem
       })
       .then(unmountComponent)
