@@ -41,20 +41,12 @@ class KaskadiIcon extends KaskadiElement {
   // custom setter for the icon property which will transform the icon attribute into the default URL if the URL provided is invalid
   set icon (val) {
     const oldVal = this._icon
+    this._icon = val
     if (!this._isUrl(val) && val !== this._defaultUrl) {
       console.warn('URL provided for icon is not a valid URL. Using default icon instead.')
       this._icon = this._defaultUrl
-    } else {
-      this._icon = val
     }
-    if (oldVal !== this._icon) {
-      this.icon = this._icon
-      this.requestUpdate('icon', oldVal)
-      this.updateComplete
-        .then(() => {
-          this._dispatchLoad()
-        })
-    }
+    this.requestUpdate('icon', oldVal)
   }
 
   // custom getter simply returning a private _icon property
@@ -87,6 +79,7 @@ class KaskadiIcon extends KaskadiElement {
       .then(res => res.blob())
       .then(data => URL.createObjectURL(data))
       .then(src => html`<img id="icon" src="${src}">`)
+    this._dispatchLoad()
   }
 
   static get styles () {
