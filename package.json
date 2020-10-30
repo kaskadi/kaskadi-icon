@@ -39,6 +39,10 @@
           "dest": "modules/@kaskadi/kaskadi-icon/{branch}kaskadi-icon.js"
         },
         {
+          "src": "icons/",
+          "dest": "modules/@kaskadi/kaskadi-icon/{branch}icons/"
+        },
+        {
           "src": "example/index.html",
           "dest": "modules/@kaskadi/kaskadi-icon/{branch}example/index.html"
         }
