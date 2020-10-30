@@ -6,6 +6,15 @@ describe('kaskadi-icon', function () {
     const loadTests = (e) => { e.detail.should.have.property('src') }
     await mountComponent({ loadTests }).then(unmountComponent)
   })
+  it('should allow users to provide a custom icon width and height', async () => {
+    const attributes = { style: '--icon-width: 64px; --icon-height: 64px;' }
+    const loadTests = async (e) => {
+      const cs = window.getComputedStyle(e.target.querySelector('#icon'))
+      cs.getPropertyValue('width').should.equal('64px')
+      cs.getPropertyValue('height').should.equal('64px')
+    }
+    await mountComponent({ loadTests, attributes }).then(unmountComponent)
+  })
   it('should render a placeholder image if no icon is specified', async () => {
     const loadTests = (e) => { e.detail.src.should.equal('./icons/default.svg') }
     mountComponent({ loadTests }).then(unmountComponent)
@@ -49,7 +58,7 @@ describe('kaskadi-icon', function () {
       })
       .then(unmountComponent)
   })
-  it('should only render once', async () => {
+  it('should only render once when using multiple time the same icon', async () => {
     let url = 'abc'
     let calls = 0
     const loadTests = (e) => { calls++ }
