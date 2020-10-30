@@ -65,7 +65,8 @@ class KaskadiIcon extends KaskadiElement {
     return !!pattern.test(str)
   }
 
-  _dispatchLoad () {
+  async _dispatchLoad () {
+    await this.updateComplete
     const ev = new CustomEvent('icon-load', {
       detail: {
         src: this._icon
