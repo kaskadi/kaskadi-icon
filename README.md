@@ -77,17 +77,15 @@ This element inherits properties from a base class `KaskadiElement`. To see whic
 
 The following custom CSS properties are available for this element:
 
-- `--icon-width);
-        height: var(--icon-height);
-      }
-      .hidden {
-        display: none;
-      }
-      .tooltip {
-        position: absolute;
-        top: calc(var(--icon-height) - 10px);
-        left: calc(var(--icon-width) - 5px);
-        font-size: min(calc(0.5 * var(--icon-height))`
+| CSS property name                                                                                                                                                                               |                                Default                                |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------: |
+| -- This will load a placeholder icon -->
+ * <kaskadi-icon></kaskadi-icon>
+ * <kaskadi-icon icon="abc"></kaskadi-icon>
+ * <!-- This will load the provided icon -->
+ * <kaskadi-icon icon="https | `//img.icons8.com/material/4ac144/256/user-male.png"></kaskadi-icon>` |
+| --icon-width                                                                                                                                                                                    |                                 `24px`                                |
+| --icon-height                                                                                                                                                                                   |                                 `24px`                                |
 <!-- automatically generated documentation will be placed in here -->
 
 <!-- You can customize this template as you'd like! -->
