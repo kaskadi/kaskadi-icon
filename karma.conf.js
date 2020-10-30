@@ -1,5 +1,3 @@
-const port = 9876
-
 module.exports = config => {
   config.set({
     frameworks: ['mocha', 'chai'],
@@ -12,8 +10,11 @@ module.exports = config => {
         istanbul: { esModules: true }
       }
     },
+    proxies: {
+      '/icons/': '/base/icons/'
+    },
     reporters: ['progress', 'coverage'],
-    port, // karma web server port
+    port: 9876, // karma web server port
     colors: true,
     browsers: ['ChromeHeadless', 'FirefoxHeadless', 'Edge'],
     autoWatch: false,
