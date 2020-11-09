@@ -124,3 +124,5 @@ class KaskadiIcon extends KaskadiElement {
 }
 
 customElements.define('kaskadi-icon', KaskadiIcon)
+
+// force
