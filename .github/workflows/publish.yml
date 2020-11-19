@@ -34,14 +34,20 @@ jobs:
       uses: github/codeql-action/autobuild@v1
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-  publish:
+  test:
     runs-on: ubuntu-latest
-    needs: analyze
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: npm i
     - name: Test
       run: npm test
+  publish:
+    runs-on: ubuntu-latest
+    needs: [analyze, test]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm i
     - name: Upload files to S3 bucket
       uses: kaskadi/action-s3cp@master
